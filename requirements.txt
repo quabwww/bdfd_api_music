@@ -8,4 +8,4 @@ moviepy
 youtube_search
 requests
 fastapi
-pydanctic
+pydantic
