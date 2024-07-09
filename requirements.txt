@@ -7,3 +7,4 @@ python-dotenv
 moviepy
 youtube_search
 requests
+fastapi
