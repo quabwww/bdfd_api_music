@@ -1,0 +1,9 @@
+discord.py
+youtube_dl
+pynacl
+pydub
+pytube
+python-dotenv
+moviepy
+youtube_search
+requests
