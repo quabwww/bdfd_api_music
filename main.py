@@ -34,16 +34,20 @@ async def join_voice(request: VoiceChannelRequest):
     if not bot.bot.is_ready():
         raise HTTPException(status_code=400, detail="Bot no está listo")
     
+    
+    
     bot_client = bot.bot
     await bot_client.join_voice_channel(request.user_id, request.guild_id, request.channel_id)
     return {"message": "Intentando unir al canal de voz"}
 
 @app.post("/play-music")
-async def play_music():
+async def play_music(musica: str, folder: str):
     if not bot_client.is_ready():
         raise HTTPException(status_code=400, detail="Bot is not ready")
     
-    await bot_client.play_music("azul - zoe", "123")
+    
+    
+    await bot_client.play_music(musica, folder)
     return {"message": "Trying to play music"}
 
 
@@ -52,4 +56,6 @@ async def read_root():
     return {"message": "Bienvenido a la API para controlar el bot de Discord"}
 
 
-
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

@@ -35,18 +35,33 @@ class BotClient(commands.Bot):
             raise commands.CommandError(f"Miembro {user_id} no está en el canal de voz {channel_id}")
 
     async def play_music(self, music, folder):
-        mp3_path = search_download_return_url(music, folder)
+        try:
+            # Llamar a la función asíncrona de búsqueda y descarga de música
+            mp3_path = await search_download_return_url(music, folder)
 
-        voice_client = discord.utils.get(self.voice_clients)
-        if not voice_client:
-            raise commands.CommandError("Bot is not in a voice channel.")
+            # Obtener el cliente de voz actual del bot
+            voice_client = discord.utils.get(self.voice_clients)
 
-        
-        if not os.path.exists(mp3_path):
-            raise commands.CommandError(f"File {mp3_path} not found.")
+            # Verificar si el bot está conectado a un canal de voz
+            if not voice_client:
+                raise commands.CommandError("Bot is not in a voice channel.")
 
-        
-        voice_client.play(discord.FFmpegPCMAudio(mp3_path), after=lambda e: print(f"Finished playing"))
+            # Verificar si el archivo MP3 existe
+            if not os.path.exists(mp3_path):
+                raise commands.CommandError(f"File {mp3_path} not found.")
+            
+            voice_client.play(discord.FFmpegPCMAudio(mp3_path), after=lambda e: print(f"Player error: {e}") if e else None)
+
+        # Aquí implementa la lógica para reproducir el archivo MP3 en el canal de voz
+        # Por ejemplo, puedes usar voice_client.play() para reproducir el archivo
+
+        except commands.CommandError as e:
+        # Capturar y manejar errores específicos de comandos
+            print(f"Error executing play_music command: {e}")
+
+        except Exception as e:
+        # Capturar cualquier otra excepción inesperada
+            print(f"Unexpected error during play_music: {e}")
 
 bot = BotClient()
 

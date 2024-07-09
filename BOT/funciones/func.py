@@ -6,7 +6,7 @@ import json
 import uuid  # Para generar un ID único para cada descarga
 import threading
 
-def search_download_return_url(query, folder_name):
+async def search_download_return_url(query, folder_name):
     try:
         # Buscar video por texto
         results = YoutubeSearch(query, max_results=1).to_json()
@@ -59,11 +59,6 @@ def search_download_return_url(query, folder_name):
         print(f"Error durante la búsqueda/descarga: {e}")
         return None
 
-    
 
-
-
-
-
-
+print(search_download_return_url("outside", "10000"))
 
