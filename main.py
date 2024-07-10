@@ -48,7 +48,7 @@ async def play_music(musica: str, folder: str):
     
     
     await bot_client.play_music(musica, folder)
-    return {"message": "Trying to play music"}
+    return {"message": f"Trying to play music: {musica}"}
 
 
 @app.get("/")
@@ -56,6 +56,3 @@ async def read_root():
     return {"message": "Bienvenido a la API para controlar el bot de Discord"}
 
 
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
