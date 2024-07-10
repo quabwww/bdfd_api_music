@@ -63,6 +63,12 @@ class BotClient(commands.Bot):
         except Exception as e:
         # Capturar cualquier otra excepción inesperada
             print(f"Unexpected error during play_music: {e}")
+            
+    async def leave_voice_channel(self):
+        voice_client = discord.utils.get(self.voice_clients)
+        if voice_client and voice_client.is_connected():
+            await voice_client.disconnect()
+            print("Bot se ha desconectado del canal de voz")
 
 bot = BotClient()
 

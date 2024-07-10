@@ -50,6 +50,14 @@ async def play_music(musica: str, folder: str):
     await bot_client.play_music(musica, folder)
     return {"message": f"Trying to play music: {musica}"}
 
+@app.post("/leave-voice")
+async def leave_voice():
+    if not bot_client.is_ready():
+        raise HTTPException(status_code=400, detail="Bot no está listo")
+    
+    await bot_client.leave_voice_channel()
+    return {"message": "Bot se ha desconectado del canal de voz"}
+
 
 @app.get("/")
 async def read_root():
