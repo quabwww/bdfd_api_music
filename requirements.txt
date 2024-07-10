@@ -8,3 +8,4 @@ youtube_search
 requests
 fastapi
 pydantic
+yt_dlp
