@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import os
 from dotenv import load_dotenv
-from BOT.funciones.func import search_download_return_url
+from BOT.funciones.func import get_most_recent_file_in_folder, search_download_and_convert_to_mp3
 load_dotenv()
 
 class BotClient(commands.Bot):
@@ -37,7 +37,8 @@ class BotClient(commands.Bot):
     async def play_music(self, music, folder):
         try:
             # Llamar a la función asíncrona de búsqueda y descarga de música
-            mp3_path = await search_download_return_url(music, folder)
+            await search_download_and_convert_to_mp3(music, folder)
+            mp3_path = await get_most_recent_file_in_folder(f"BOT/descargas/{folder}")
 
             # Obtener el cliente de voz actual del bot
             voice_client = discord.utils.get(self.voice_clients)
